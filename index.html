@@ -11,27 +11,16 @@
       padding: 0;
       font-family: "Poppins", sans-serif;
       background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
+      display: flex; /* Adicionado para centralizar o container */
+      align-items: center; /* Centraliza verticalmente o container */
+      justify-content: center; /* Centraliza horizontalmente o container */
       min-height: 100vh;
       color: #333;
       transition: background 0.4s ease, color 0.4s ease;
-      padding-left: 20px;
+      /* padding-left: 20px; Removido pois não é mais necessário com a centralização */
     }
 
-    /* Lateral esquerda com arte maior */
-    .left-art {
-      position: fixed;
-      left: 20px;
-      top: 0;
-      width: 360px;
-      height: 100%;
-      background: url('ART1.png') no-repeat center;
-      background-size: contain;
-      z-index: 0;
-      pointer-events: none;
-    }
+    /* .left-art - Removido conforme sua solicitação */
 
     .container {
       text-align: center;
@@ -43,7 +32,7 @@
       animation: fadeIn 1s ease;
       transition: background 0.4s ease, color 0.4s ease;
       z-index: 1;
-      margin-left: 380px;
+      /* margin-left: 380px; Removido para permitir centralização automática */
       position: relative;
     }
 
@@ -82,7 +71,7 @@
       font-weight: 500;
       font-family: 'Times New Roman', serif;
       transition: all 0.3s ease;
-      text-align: center; /* Centraliza o texto */
+      text-align: center;
     }
 
     .text-link a:hover {
@@ -199,10 +188,28 @@
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    /* Media Queries para responsividade a telas menores */
+    @media (max-width: 768px) {
+      .container {
+        max-width: 90%; /* Aumenta a largura em telas menores para melhor aproveitamento do espaço */
+        padding: 20px;
+      }
+
+      .menu-btn {
+        top: 15px;
+        right: 15px;
+        width: 30px;
+        height: 25px;
+      }
+
+      .menu-panel {
+        width: 100%; /* Ocupa toda a largura da tela em dispositivos móveis */
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="left-art"></div>
   <div class="menu-btn" id="menuBtn">
     <span class="bar"></span>
     <span class="bar"></span>
