@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página de Abertura</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      color: #333;
+      transition: background 0.4s ease, color 0.4s ease;
+      padding-left: 20px;
+    }
+
+    /* Lateral esquerda com arte maior */
+    .left-art {
+      position: fixed;
+      left: 20px;
+      top: 0;
+      width: 360px;
+      height: 100%;
+      background: url('ART1.png') no-repeat center;
+      background-size: contain;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .container {
+      text-align: center;
+      padding: 40px;
+      max-width: 600px;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0px 4px 20px rgba(0,0,0,0.15);
+      animation: fadeIn 1s ease;
+      transition: background 0.4s ease, color 0.4s ease;
+      z-index: 1;
+      margin-left: 380px;
+      position: relative;
+    }
+
+    #title {
+      font-size: 2.2em;
+      margin-bottom: 25px;
+      color: #007bff;
+      font-weight: 600;
+      transition: color 0.4s ease;
+    }
+
+    .text-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
+    }
+
+    /* Links do menu central */
+    .text-link {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .text-link a {
+      flex-grow: 1;
+      padding: 12px;
+      border-radius: 10px;
+      background: #f1f1f1;
+      color: #007bff;
+      text-decoration: none;
+      font-size: 1.2em;
+      font-weight: 500;
+      font-family: 'Times New Roman', serif;
+      transition: all 0.3s ease;
+      text-align: center; /* Centraliza o texto */
+    }
+
+    .text-link a:hover {
+      background: #007bff;
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    /* Botão hamburguer */
+    .menu-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 35px;
+      height: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      z-index: 1002;
+    }
+
+    .bar {
+      height: 5px;
+      background-color: #007bff;
+      border-radius: 3px;
+      transition: background 0.3s ease;
+    }
+
+    .menu-btn:hover .bar {
+      background-color: #0056b3;
+    }
+
+    /* Painel lateral */
+    .menu-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 250px;
+      height: 100%;
+      background: #fff;
+      box-shadow: -4px 0px 10px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      padding: 60px 20px 20px;
+      gap: 15px;
+      transform: translateX(100%);
+      visibility: hidden;
+      opacity: 0;
+      transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s;
+      z-index: 1001;
+    }
+
+    .menu-panel.active {
+      transform: translateX(0);
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .menu-panel button {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: #f1f1f1;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .menu-panel button:hover {
+      background: #007bff;
+      color: #fff;
+    }
+
+    /* Tema escuro */
+    body.dark {
+      background: linear-gradient(135deg, #1e1e1e, #121212);
+      color: #f1f1f1;
+    }
+
+    body.dark .container {
+      background: #1f1f1f;
+      box-shadow: 0px 4px 20px rgba(255,255,255,0.1);
+    }
+
+    body.dark #title {
+      color: #66d9ef;
+    }
+
+    body.dark .text-link a {
+      background: #333;
+      color: #66d9ef;
+    }
+
+    body.dark .text-link a:hover {
+      background: #66d9ef;
+      color: #000;
+    }
+
+    body.dark .menu-panel {
+      background: #222;
+      color: #f1f1f1;
+    }
+
+    body.dark .bar {
+      background-color: #66d9ef;
+    }
+
+    /* Card de aviso */
+    .translation-warning-card {
+      position: fixed;
+      top: 3cm;
+      right: 1cm;
+      width: 8cm;
+      height: 5cm;
+      background-color: #90ee90;
+      border-radius: 15px;
+      box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px;
+      text-align: center;
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #ffa500;
+      line-height: 1.2;
+      transition: background 0.4s ease, color 0.4s ease;
+      z-index: 999;
+    }
+
+    body.dark .translation-warning-card {
+      background-color: #388e3c;
+      color: #ffb74d;
+      box-shadow: 0px 2px 10px rgba(255,255,255,0.1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="left-art"></div>
+  <div class="translation-warning-card">
+    <p>Para a melhor experiência, por favor, desative a tradução automática do seu navegador.</p>
+  </div>
+  <div class="menu-btn" id="menuBtn">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </div>
+  <div class="menu-panel" id="menuPanel">
+    <button id="toggleTheme"><i class="fas fa-cog"></i> Alterar Tema</button>
+  </div>
+  <div class="container">
+    <h1 id="title">Interactive Texts</h1>
+    <div class="text-container">
+      <div class="text-link">
+        <a href="https://a-birthday-party.netlify.app/" data-id="birthday-party" target="_blank">A Birthday Party</a>
+      </div>
+      <div class="text-link">
+        <a href="https://a-day-at-the-park.netlify.app/" data-id="day-at-the-park" target="_blank">A Day at the Park</a>
+      </div>
+      <div class="text-link">
+        <a href="https://a-day-at-the-pool.netlify.app/" data-id="day-at-the-pool" target="_blank">A Day at the Pool</a>
+      </div>
+      <div class="text-link">
+        <a href="https://a-day-at-work.netlify.app/" data-id="day-at-work" target="_blank">A Day at Work</a>
+      </div>
+      <div class="text-link">
+        <a href="https://a-family-dinner.netlify.app/" data-id="family-dinner" target="_blank">A Family Dinner</a>
+      </div>
+      <div class="text-link">
+        <a href="https://a-rainy-day.netlify.app/" data-id="rainy-day" target="_blank">A Rainy Day</a>
+      </div>
+      <div class="text-link">
+        <a href="https://a-rainy-day-inside.netlify.app/" data-id="a-rainy-day-inside" target="_blank">A Rainy Day Inside</a>
+      </div>
+      <div class="text-link">
+        <a href="https://a-trip-to-the-beach.netlify.app/" data-id="trip-to-the-beach" target="_blank">A Trip to the Beach</a>
+      </div>
+      <div class="text-link">
+        <a href="https://a-trip-to-the-city.netlify.app/" data-id="trip-to-the-city" target="_blank">A Trip to the City</a>
+      </div>
+      <div class="text-link">
+        <a href="https://a-visit-to-the-city.netlify.app/" data-id="visit-to-the-city" target="_blank">A Visit to the City</a>
+      </div>
+      <div class="text-link">
+        <a href="https://a-visit-to-the-dentist.netlify.app/" data-id="visit-to-the-dentist" target="_blank">A Visit to the Dentist</a>
+      </div>
+      <div class="text-link">
+        <a href="https://a-visit-to-the-zoo.netlify.app/" data-id="visit-to-the-zoo" target="_blank">A Visit to the Zoo</a>
+      </div>
+      <div class="text-link">
+        <a href="https://cleaning-my-house.netlify.app/" data-id="basic-english-in-the-kitchen" target="_blank">Basic English in the Kitchen</a>
+      </div>
+      <div class="text-link">
+        <a href="https://cleaning-my-house.netlify.app/" data-id="cleaning-my-house" target="_blank">Cleaning My House</a>
+      </div>
+      <div class="text-link">
+        <a href="https://food-i-like.netlify.app/" data-id="food-i-like" target="_blank">Food I Like</a>
+      </div>
+      <div class="text-link">
+        <a href="https://going-to-the-grocery-store.netlify.app/" data-id="going-to-the-grocery-store" target="_blank">Going to the Grocery Store</a>
+      </div>
+      <div class="text-link">
+        <a href="https://learning-a-new-language.netlify.app/" data-id="learning-a-new-language" target="_blank">Learning a New Language</a>
+      </div>
+      <div class="text-link">
+        <a href="https://learning-to-ride-a-bike.netlify.app/" data-id="learning-to-ride-a-bike" target="_blank">Learning to Ride a Bike</a>
+      </div>
+      <div class="text-link">
+        <a href="https://my-best-friend-1.netlify.app/" data-id="my-best-friend" target="_blank">My Best Friend</a>
+      </div>
+      <div class="text-link">
+        <a href="https://my-daily-routine-1.netlify.app/" data-id="my-daily-routine" target="_blank">My Daily Routine</a>
+      </div>
+      <div class="text-link">
+        <a href="https://my-daily-routine-2.netlify.app/" data-id="my-daily-routine-2" target="_blank">My Daily Routine 2</a>
+      </div>
+      <div class="text-link">
+        <a href="https://my-dream-house1.netlify.app/" data-id="my-dream-house" target="_blank">My Dream House</a>
+      </div>
+      <div class="text-link">
+        <a href="https://my-dream-job1.netlify.app/" data-id="my-dream-job" target="_blank">My Dream Job</a>
+      </div>
+      <div class="text-link">
+        <a href="https://my-dream-vacation.netlify.app/" data-id="my-dream-vacation" target="_blank">My Dream Vacation</a>
+      </div>
+      <div class="text-link">
+        <a href="https://my-evening-activities.netlify.app/" data-id="my-evening-activities" target="_blank">My Evening Activities</a>
+      </div>
+      <div class="text-link">
+        <a href="https://my-family-1.netlify.app/" data-id="my-family" target="_blank">My Family</a>
+      </div>
+      <div class="text-link">
+        <a href="https://my-family-s-dinner.netlify.app/" data-id="my-family-s-dinner" target="_blank">My Family's Dinner</a>
+      </div>
+      <div class="text-link">
+        <a href="https://my-favorite-animal-the-dog.netlify.app/" data-id="my-favorite-animal-the-dog" target="_blank">My Favorite Animal The Dog</a>
+      </div>
+      <div class="text-link">
+        <a href="https://my-favorite-food-pizza.netlify.app/" data-id="my-favorite-food-pizza" target="_blank">My Favorite Food Pizza</a>
+      </div>
+      <div class="text-link">
+        <a href="https://my-favorite-holiday-christmas.netlify.app/" data-id="my-favorite-holiday-christmas" target="_blank">My Favorite Holiday Christmas</a>
+      </div>
+      <div class="text-link">
+        <a href="https://my-favorite-place.netlify.app/" data-id="my-favorite-place" target="_blank">My Favorite Place</a>
+      </div>
+      <div class="text-link">
+        <a href="https://my-favorite-season-spring.netlify.app/" data-id="my-favorite-season-spring" target="_blank">My Favorite Season: Spring</a>
+      </div>
+      <div class="text-link">
+        <a href="https://my-favorite-subject-science.netlify.app/" data-id="my-favorite-subject-science" target="_blank">My Favorite Subject Science</a>
+      </div>
+      <div class="text-link">
+        <a href="https://my-favorite-toy.netlify.app/" data-id="my-favorite-toy" target="_blank">My Favorite Toy</a>
+      </div>
+      <div class="text-link">
+        <a href="https://my-first-job1.netlify.app/" data-id="my-first-job" target="_blank">My First Job</a>
+      </div>
+      <div class="text-link">
+        <a href="https://my-first-time-cooking.netlify.app/" data-id="my-first-time-cooking" target="_blank">My First Time Cooking</a>
+      </div>
+      <div class="text-link">
+        <a href="https://my-first-time-on-a-plane.netlify.app/" data-id="my-first-time-on-a-plane" target="_blank">My First Time on a Plane</a>
+      </div>
+      <div class="text-link">
+        <a href="https://my-hobbies1.netlify.app/" data-id="my-hobbies" target="_blank">My Hobbies</a>
+      </div>
+      <div class="text-link">
+        <a href="https://my-hobbies-2.netlify.app/" data-id="my-hobbies-2" target="_blank">My Hobbies 2</a>
+      </div>
+      <div class="text-link">
+        <a href="https://my-morning-routine1.netlify.app/" data-id="my-morning-routine" target="_blank">My Morning Routine</a>
+      </div>
+      <div class="text-link">
+        <a href="https://my-pet-cat1.netlify.app/" data-id="my-pet-cat" target="_blank">My Pet Cat</a>
+      </div>
+      <div class="text-link">
+        <a href="https://my-trip-to-the-library.netlify.app/" data-id="my-trip-to-the-library" target="_blank">My Trip to the Library</a>
+      </div>
+      <div class="text-link">
+        <a href="https://shopping-at-the-supermarket.netlify.app/" data-id="shopping-at-the-supermarket" target="_blank">Shopping at the Supermarket</a>
+      </div>
+      <div class="text-link">
+        <a href="https://the-big-book-store.netlify.app/" data-id="the-big-bookstore" target="_blank">The Big Bookstore</a>
+      </div>
+      <div class="text-link">
+        <a href="https://the-local-park.netlify.app/" data-id="the-local-park" target="_blank">The Local Park</a>
+      </div>
+      <div class="text-link">
+        <a href="https://the-little-bear-who-lost-his-roar.netlify.app/" data-id="the-little-bear-who-lost-his-roar" target="_blank">The Little Bear Who Lost His Roar</a>
+      </div>
+      <div class="text-link">
+        <a href="https://the-little-blue-light.netlify.app/" data-id="the-little-blue-light" target="_blank">The Little Blue Light</a>
+      </div>
+      <div class="text-link">
+        <a href="https://the-school-play.netlify.app/" data-id="the-school-play" target="_blank">The School Play</a>
+      </div>
+      <div class="text-link">
+        <a href="https://the-seasons1.netlify.app/" data-id="the-seasons" target="_blank">The Seasons</a>
+      </div>
+      <div class="text-link">
+        <a href="https://the-sun1.netlify.app/" data-id="the-sun" target="_blank">The Sun</a>
+      </div>
+    </div>
+  </div>
+  <script>
+    const menuBtn = document.getElementById("menuBtn");
+    const menuPanel = document.getElementById("menuPanel");
+    const toggleThemeBtn = document.getElementById("toggleTheme");
+    const body = document.body;
+
+    // Toggle menu
+    menuBtn.addEventListener("click", () => {
+      menuPanel.classList.toggle("active");
+    });
+
+    // Load theme from localStorage
+    if (localStorage.getItem("theme") === "dark") {
+      body.classList.add("dark");
+    }
+
+    // Toggle theme and save to localStorage
+    toggleThemeBtn.addEventListener("click", () => {
+      body.classList.toggle("dark");
+      localStorage.setItem("theme", body.classList.contains("dark") ? "dark" : "light");
+    });
+  </script>
+</body>
+</html>
