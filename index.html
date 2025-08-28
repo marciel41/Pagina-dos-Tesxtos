@@ -11,16 +11,13 @@
       padding: 0;
       font-family: "Poppins", sans-serif;
       background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
-      display: flex; /* Adicionado para centralizar o container */
-      align-items: center; /* Centraliza verticalmente o container */
-      justify-content: center; /* Centraliza horizontalmente o container */
+      display: flex;
+      align-items: center;
+      justify-content: center;
       min-height: 100vh;
       color: #333;
       transition: background 0.4s ease, color 0.4s ease;
-      /* padding-left: 20px; Removido pois não é mais necessário com a centralização */
     }
-
-    /* .left-art - Removido conforme sua solicitação */
 
     .container {
       text-align: center;
@@ -32,7 +29,6 @@
       animation: fadeIn 1s ease;
       transition: background 0.4s ease, color 0.4s ease;
       z-index: 1;
-      /* margin-left: 380px; Removido para permitir centralização automática */
       position: relative;
     }
 
@@ -189,10 +185,10 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Media Queries para responsividade a telas menores */
-    @media (max-width: 768px) {
+    /* Media Query para telas pequenas (smartphones) */
+    @media (max-width: 780px) {
       .container {
-        max-width: 90%; /* Aumenta a largura em telas menores para melhor aproveitamento do espaço */
+        max-width: 90%;
         padding: 20px;
       }
 
@@ -203,8 +199,9 @@
         height: 25px;
       }
 
+      /* Reduz a largura do painel do menu em telas menores */
       .menu-panel {
-        width: 100%; /* Ocupa toda a largura da tela em dispositivos móveis */
+        width: 240px; /* 1cm ou 10px menor que o padrão de 250px */
       }
     }
   </style>
